@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "726951073308",
+    "firebase_url": "https://elderly-social-network.firebaseio.com",
+    "project_id": "elderly-social-network",
+    "storage_bucket": "elderly-social-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726951073308:android:e5626cc7766e6253",
+        "android_client_info": {
+          "package_name": "com.example.tyler.grandpair"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726951073308-8agq5eg72msfr59nebp0adq0b7srtb7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tyler.grandpair",
+            "certificate_hash": "0d2d8c8e91a68191cb448e77beb2a4b4209448f1"
+          }
+        },
+        {
+          "client_id": "726951073308-v37t0t27j8j8fo43fcscab23qmm8t2i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfM9hpdTgN_MxMYnkgpSf4tmXLBgykS10"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726951073308-v37t0t27j8j8fo43fcscab23qmm8t2i1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
