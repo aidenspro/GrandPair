@@ -11,13 +11,21 @@
     <Button
         android:id="@+id/login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="login" />
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
+        android:background="#FFD700"
+        android:text="login"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="register" />
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
+        android:background="#FFD700"
+        android:text="register"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

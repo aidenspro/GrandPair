@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                             return;
                         }else{
                             Intent intent = new Intent(LoginActivity.this, SwipeActivity.class);
+                            System.out.println("here");
                             startActivity(intent);
                             finish();
                             return;

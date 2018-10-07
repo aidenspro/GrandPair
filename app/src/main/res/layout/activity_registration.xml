@@ -6,19 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
     android:orientation="vertical">
+
     <EditText
+        android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:id="@+id/email"/>
+        android:layout_height="125dp"
+        android:hint="Email" />
+
     <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:id="@+id/password"/>
+        android:layout_height="125dp"
+        android:hint="Password" />
+
     <Button
+        android:id="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/register"/>
+        android:layout_height="100dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Register" />
 </LinearLayout>

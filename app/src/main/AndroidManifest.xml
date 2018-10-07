@@ -5,11 +5,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="GrandPair"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        android:theme="@style/pear">
+        <activity android:name=".MainActivity"
+            android:theme="@style/pear" />
         <activity android:name=".LoginRegActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,8 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SwipeActivity"></activity>
+        <activity android:name=".SwipeActivity"
+            android:theme="@style/pear"></activity>
     </application>
 
 </manifest>
