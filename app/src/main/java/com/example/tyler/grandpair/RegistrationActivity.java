@@ -57,11 +57,20 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(RegistrationActivity.this, "Sign Up Error", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegistrationActivity.this, LoginRegActivity.class);
+                            try {
+                                Toast.makeText(RegistrationActivity.this, "Sign Up Error", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }catch(Exception FirebaseAuthWeakPasswordException){
+                                Toast.makeText(RegistrationActivity.this, FirebaseAuthWeakPasswordException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            return;
+                        }else{
+                            Toast.makeText(RegistrationActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-                            return;
                         }
                     }
                 });
