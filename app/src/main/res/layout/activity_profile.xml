@@ -14,7 +14,9 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="TextView"
+        android:gravity="center"
         android:textSize="30sp"
+        android:background="@drawable/border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -28,7 +30,9 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="TextView"
+        android:background="@drawable/border"
         android:textSize="30sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -51,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="centerCrop"
+        android:background="@drawable/border"
         app:srcCompat="@drawable/yoga" />
 
     <TextView
@@ -62,27 +67,38 @@
         android:layout_marginRight="23dp"
         android:layout_marginBottom="100dp"
         android:text="Age"
+        android:gravity="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/editText3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/border"
         tools:text="Age" />
 
     <EditText
         android:id="@+id/editText3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="354dp"
+        android:layout_height="182dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="22dp"
+        android:background="@drawable/border"
         android:ems="10"
-        android:inputType="textMultiLine|textPersonName"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
         android:text="Bio"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+
 </android.support.constraint.ConstraintLayout>
