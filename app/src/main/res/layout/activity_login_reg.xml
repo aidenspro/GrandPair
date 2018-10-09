@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/landingbot"
+    android:background="@drawable/coupleLanding"
     android:orientation="vertical"
     tools:context=".LoginRegActivity">
 
@@ -30,7 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="125dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="287dp"
