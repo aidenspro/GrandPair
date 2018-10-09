@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginRegActivity"
-    android:background="@drawable/applanding">
+    android:background="@drawable/landingbot">
 
 
     <Button
@@ -19,8 +19,8 @@
 
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#FFD700"
+        android:layout_marginTop="10dp"
+        android:background="#ccFFA500"
         android:text="login"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -28,15 +28,15 @@
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FFD700"
+        android:layout_marginBottom="287dp"
+        android:background="#ccFFA500"
         android:text="register"
         android:textSize="30sp"
         android:textStyle="bold" />

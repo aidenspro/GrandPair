@@ -12,22 +12,23 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:background="#E6FEFFFE"
         android:hint="Email" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:background="#E6FEFFFE"
+        android:layout_marginTop="130dp"
         android:hint="Password" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="420dp"
         android:background="@color/colorPrimaryDark"
         android:text="Register" />
 </RelativeLayout>
