@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                             return;
                         }else{
-                            Intent intent = new Intent(LoginActivity.this, SwipeActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, ChoicesActivity.class);
                             System.out.println("here");
                             startActivity(intent);
                             finish();
