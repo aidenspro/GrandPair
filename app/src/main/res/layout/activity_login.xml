@@ -12,33 +12,54 @@
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:hint="Email"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
         android:background="#E6FEFFFE"
         android:inputType="textEmailAddress" />
+
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/email"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="25dp"
         android:background="#E6FEFFFE"
-        android:hint="Password"
         android:inputType="textPassword"
         android:textStyle="bold"
         android:visibility="visible" />
 
+    <EditText
+        android:id="@+id/email_text"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Type Email Below"
+        android:background="#CCFFA500"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/pssword_text"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_above="@+id/password"
+        android:layout_marginBottom="-26dp"
+        android:background="#CCFFA500"
+        android:text="Type Password Below"
+        android:textSize="20sp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/login"
 
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:text="Login"
+        android:textSize="40sp"
+        android:textStyle="bold"
         android:background="@drawable/button"/>
 
 </RelativeLayout>
