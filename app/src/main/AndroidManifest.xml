@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/pear">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/pear" />
         <activity android:name=".LoginRegActivity">
             <intent-filter>
@@ -20,8 +21,11 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SwipeActivity"
-            android:theme="@style/pear"></activity>
+        <activity
+            android:name=".SwipeActivity"
+            android:theme="@style/pear" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ChoicesActivity"></activity>
     </application>
 
 </manifest>
