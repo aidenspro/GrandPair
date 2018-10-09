@@ -1,30 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/applanding">
+
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:hint="Email"
+        android:background="#E6FEFFFE"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="3dp"
+        android:background="#E6FEFFFE"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/login"
-        android:layout_width="match_parent"
+
+        android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Login" />
-</LinearLayout>
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:text="Login"
+        android:background="@drawable/button"/>
+
+</RelativeLayout>
