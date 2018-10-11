@@ -12,20 +12,25 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/pear" />
-        <activity android:name=".LoginRegActivity">
+        <activity android:name=".LoginRegActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistrationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SwipeActivity"
             android:theme="@style/pear" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ChoicesActivity"></activity>
+        <activity android:name=".ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ChoicesActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
