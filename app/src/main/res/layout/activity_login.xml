@@ -34,6 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Type Email Below"
+        android:inputType="none"
+        android:focusable="false"
+        android:clickable="false"
         android:background="#CCFFA500"
         android:textStyle="bold"
         android:textSize="20sp"/>
@@ -46,6 +49,9 @@
         android:layout_marginBottom="-26dp"
         android:background="#CCFFA500"
         android:text="Type Password Below"
+        android:inputType="none"
+        android:focusable="false"
+        android:clickable="false"
         android:textSize="20sp"
         android:textStyle="bold" />
     <Button

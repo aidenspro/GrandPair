@@ -15,7 +15,7 @@
         android:layout_marginRight="24dp"
         android:background="@drawable/border"
         android:gravity="center"
-        android:text="TextView"
+        android:text="Last Name"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         android:layout_marginRight="24dp"
         android:background="@drawable/border"
         android:gravity="center"
-        android:text="TextView"
+        android:text="First Name"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -60,30 +60,29 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="161dp"
-        android:layout_height="51dp"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
         android:layout_marginTop="147dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginRight="23dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginBottom="100dp"
-        android:text="Age"
+        android:background="@drawable/border"
         android:gravity="center"
+        android:text="Age"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/editText3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/border"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Age" />
 
     <TextView
         android:id="@+id/editText3"
-        android:layout_width="354dp"
-        android:layout_height="182dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="191dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/border"
         android:ems="10"
         android:gravity="center"
@@ -94,10 +93,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 
