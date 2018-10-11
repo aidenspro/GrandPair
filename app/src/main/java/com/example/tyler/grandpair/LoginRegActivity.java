@@ -23,7 +23,7 @@ public class LoginRegActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginRegActivity.this, LoginActivity.class);
                 startActivity(intent);
-                finish();
+
                 return;
             }
             });
@@ -32,7 +32,7 @@ public class LoginRegActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginRegActivity.this, RegistrationActivity.class);
                 startActivity(intent);
-                finish();
+
                 return;
             }
         });
