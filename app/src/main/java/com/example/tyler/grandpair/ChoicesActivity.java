@@ -4,22 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 public class ChoicesActivity extends AppCompatActivity {
 
-    private Button settings;
-    private Button profile;
-    private Button discover;
+    private ImageButton settings;
+    private ImageButton profile;
+    private ImageButton discover;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choices);
-        settings = (Button) findViewById(R.id.settings);
-        profile = (Button) findViewById(R.id.profile);
-        discover = (Button) findViewById(R.id.discover);
+        settings = (ImageButton) findViewById(R.id.settings);
+        profile = (ImageButton) findViewById(R.id.profile);
+        discover = (ImageButton) findViewById(R.id.discover);
+        int width = getResources().getDisplayMetrics().widthPixels/3;
+        int hei=getResources().getDisplayMetrics().heightPixels/3;
+        //settings.setLayoutParams(new LinearLayout.LayoutParams(width,hei));
+        //profile.setLayoutParams(new LinearLayout.LayoutParams(width,hei));
+        //discover.setLayoutParams(new LinearLayout.LayoutParams(width,hei));
+
+
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +59,6 @@ public class ChoicesActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }
