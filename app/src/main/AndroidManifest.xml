@@ -37,6 +37,9 @@
             android:name=".ChoicesActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".CreateProfile"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
