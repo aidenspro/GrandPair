@@ -15,12 +15,12 @@
         android:layout_marginRight="24dp"
         android:background="@drawable/border"
         android:gravity="center"
-        android:text="Last Name"
+        android:hint="Last Name"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Last Name" />
+        />
 
     <TextView
         android:id="@+id/firstName"
@@ -31,12 +31,11 @@
         android:layout_marginRight="24dp"
         android:background="@drawable/border"
         android:gravity="center"
-        android:text="First Name"
+        android:hint="First Name"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="First Name" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
         android:id="@+id/profilePicture"
