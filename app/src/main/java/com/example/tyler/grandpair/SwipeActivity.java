@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class SwipeActivity extends Activity {
     private ArrayList<String> al;
     private ArrayAdapter<String> arrayAdapter;
     private int i;
+    private StorageReference mStorageRef;
 
     @BindView(R.id.frame) SwipeFlingAdapterView flingContainer;
 
@@ -29,7 +32,7 @@ public class SwipeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
         ButterKnife.bind(this);
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         al = new ArrayList<>();
         al.add("Swipe");
