@@ -44,6 +44,16 @@
                 android:text="Disvoverable"
                 tools:checked="false" />
 
+            <Button
+                android:id="@+id/profileSettings"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_weight="1"
+
+                android:text="Profile Settings"
+
+                />
+
         </LinearLayout>
     </ScrollView>
 
