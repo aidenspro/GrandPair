@@ -10,13 +10,13 @@ import android.widget.TextView;
 public class SettingsActivity extends AppCompatActivity {
 
 
-    private TextView mProfileSettings;
+    private Button mProfileSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mProfileSettings = (Button) findViewById(R.id.profileSettings);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        mProfileSettings = (Button) findViewById(R.id.profileSettings);
         mProfileSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

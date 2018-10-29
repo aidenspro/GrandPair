@@ -32,7 +32,7 @@ public class ChoicesActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChoicesActivity.this, CreateProfile.class);
+                Intent intent = new Intent(ChoicesActivity.this, SettingsActivity.class);
                 startActivity(intent);
 
                 return;
