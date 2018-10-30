@@ -64,7 +64,8 @@ public class CreateProfile extends AppCompatActivity {
 
                 current_user_db.setValue(newPost);
 
-
+                Intent intent = new Intent(CreateProfile.this, ChoicesActivity.class);
+                startActivity(intent);
                 finish();
 
             }

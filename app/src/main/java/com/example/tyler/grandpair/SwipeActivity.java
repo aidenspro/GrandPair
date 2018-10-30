@@ -5,8 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
@@ -23,6 +26,8 @@ public class SwipeActivity extends Activity {
     private ArrayAdapter<String> arrayAdapter;
     private int i;
     private StorageReference mStorageRef;
+    private FirebaseAuth mAuth;
+    private ImageView mImageView;
 
     @BindView(R.id.frame) SwipeFlingAdapterView flingContainer;
 
@@ -31,6 +36,11 @@ public class SwipeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        String User_id = mAuth.getCurrentUser().getUid();
+        mImageView =(ImageView)findViewById(R.id.profilePicture);
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
         ButterKnife.bind(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
