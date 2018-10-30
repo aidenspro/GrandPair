@@ -16,8 +16,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import com.google.firebase.firestore.FirestoreRegistrar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String age;
     private StorageReference mStorageRef;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
         mLastName = (TextView) findViewById(R.id.lastName);
         mAge = (TextView) findViewById(R.id.age);
         mStorageRef = FirebaseStorage.getInstance().getReference();
+
+
         mAuth = FirebaseAuth.getInstance();
         String User_id = mAuth.getCurrentUser().getUid();
         mImageView =(ImageView)findViewById(R.id.profilePicture);
@@ -85,10 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
 
 
