@@ -2,18 +2,26 @@ package com.example.tyler.grandpair;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -28,6 +36,7 @@ public class SwipeActivity extends Activity {
     private StorageReference mStorageRef;
     private FirebaseAuth mAuth;
     private ImageView mImageView;
+    private TextView hello;
 
     @BindView(R.id.frame) SwipeFlingAdapterView flingContainer;
 
@@ -44,6 +53,7 @@ public class SwipeActivity extends Activity {
         ButterKnife.bind(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+
         al = new ArrayList<>();
         al.add("Swipe");
         al.add("Cards");
@@ -54,7 +64,7 @@ public class SwipeActivity extends Activity {
 
         arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
 
-        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+        final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -82,7 +92,33 @@ public class SwipeActivity extends Activity {
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
+                mStorageRef.child("0.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        // Got the download URL for 'users/me/profile.png'
+                        //Drawable drawable = LoadImageFromWebOperations(uri.toString());
+                        try {
+                            URL url = new URL(uri.toString());
+                            Glide.with(getApplicationContext()).load(uri).into(mImageView);
+
+                            //Toast.makeText(Profitivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
+                            //mImageView.setImageDrawable(drawable);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+
                 al.add("Swipe ".concat(String.valueOf(i)));
+                hello = (TextView) findViewById(R.id.helloText);
+                hello.setBackground(mImageView.getDrawable());
                 arrayAdapter.notifyDataSetChanged();
                 Log.d("LIST", "notified");
                 i++;
@@ -93,6 +129,8 @@ public class SwipeActivity extends Activity {
 
             }
         });
+
+
 
 
         // Optionally add an OnItemClickListener
