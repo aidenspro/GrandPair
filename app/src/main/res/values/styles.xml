@@ -10,4 +10,13 @@
 
     <style name="pear" parent="AppTheme" />
 
+    <style name="pear.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="pear.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="pear.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
-    android:layout_height="275dp"
+    android:layout_width="300dp"
+    android:layout_height="375dp"
     android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/helloText"
+
+    <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FF8C00"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="40sp"
-        tools:text="hello_world" />
+        tools:text="hello_world"/>
+
+
+
 
     <View
         android:id="@+id/item_swipe_left_indicator"

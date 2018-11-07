@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">grandpair</string>
+    <string name="title_activity_event">EventActivity</string>
 </resources>

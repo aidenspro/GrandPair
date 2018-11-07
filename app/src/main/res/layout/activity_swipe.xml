@@ -8,6 +8,7 @@
     tools:context=".SwipeActivity">
 
 
+
         <com.lorentzos.flingswipe.SwipeFlingAdapterView
             android:id="@+id/frame"
             android:background="#ffeee9e2"
