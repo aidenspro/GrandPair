@@ -45,7 +45,8 @@
         <activity
             android:name=".EventActivity"
             android:label="@string/title_activity_event"
-            android:theme="@style/pear.NoActionBar"></activity>
+            android:theme="@style/pear.NoActionBar" />
+        <activity android:name=".CreateEventActivity"></activity>
     </application>
 
 </manifest>

@@ -16,12 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import com.google.firebase.firestore.FirestoreRegistrar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -95,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        mStorageRef.child(User_id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        mStorageRef.child("UserPictures").child(User_id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'

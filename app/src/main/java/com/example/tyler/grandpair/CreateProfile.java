@@ -101,8 +101,8 @@ public class CreateProfile extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference mountainsRef = mStorageRef.child(USER_ID + "pic1.jpg");
-        StorageReference mountainImagesRef = mStorageRef.child("images/mountains.jpg");
+        StorageReference mountainsRef = mStorageRef.child("UserPictures").child(USER_ID + "pic1.jpg");
+        //StorageReference mountainImagesRef = mStorageRef.child("images/mountains.jpg");
         InputStream IS = null;
 
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {

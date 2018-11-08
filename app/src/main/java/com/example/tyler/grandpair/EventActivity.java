@@ -48,7 +48,7 @@ public class EventActivity extends AppCompatActivity {
         String User_id = mAuth.getCurrentUser().getUid();
         mImageView =(ImageView)findViewById(R.id.eventPicture);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        final DatabaseReference getFirst = db.getInstance().getReference().child("Users").child(User_id).child("first name");
+        final DatabaseReference getFirst = db.getInstance().getReference().child("Event").child(Event_ID).child("first name");
         DatabaseReference getLast = db.getInstance().getReference().child("Users").child(User_id).child("last name");
         DatabaseReference getAge = db.getInstance().getReference().child("Users").child(User_id).child("age");
         getFirst.addValueEventListener(new ValueEventListener() {
@@ -99,7 +99,7 @@ public class EventActivity extends AppCompatActivity {
                 try {
                     URL url = new URL(uri.toString());
                     //uri = getIntent().getStringExtra("CURRENT_URL");
-                    uri = Uri.parse(getIntent().getStringExtra("CURRENT_URL"));
+                   // uri = Uri.parse(getIntent().getStringExtra("CURRENT_URL"));
                     Glide.with(getApplicationContext()).load(uri).into(mImageView);
 
                     //Toast.makeText(Profitivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
