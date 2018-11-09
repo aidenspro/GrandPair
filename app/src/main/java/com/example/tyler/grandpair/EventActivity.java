@@ -28,9 +28,12 @@ public class EventActivity extends AppCompatActivity {
     private TextView mDate;
     private TextView mLocation;
     private TextView mEventName;
+
     private String fName;
     private String lName;
+    private String url;
     private String age;
+    private int Event_ID;
     private StorageReference mStorageRef;
 
 
@@ -42,15 +45,17 @@ public class EventActivity extends AppCompatActivity {
         mLocation = (TextView) findViewById(R.id.eventName);
         mDate = (TextView) findViewById(R.id.date);
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        Event_ID = getIntent().getIntExtra("EVENT_ID",0);
 
 
         mAuth = FirebaseAuth.getInstance();
         String User_id = mAuth.getCurrentUser().getUid();
         mImageView =(ImageView)findViewById(R.id.eventPicture);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        final DatabaseReference getFirst = db.getInstance().getReference().child("Event").child(Event_ID).child("first name");
-        DatabaseReference getLast = db.getInstance().getReference().child("Users").child(User_id).child("last name");
-        DatabaseReference getAge = db.getInstance().getReference().child("Users").child(User_id).child("age");
+        final DatabaseReference getFirst = db.getInstance().getReference().child("Event").child(""+Event_ID).child("Name");
+        DatabaseReference getLast = db.getInstance().getReference().child("Event").child(""+Event_ID).child("Location");
+        DatabaseReference getAge = db.getInstance().getReference().child("Event").child(""+Event_ID).child("Date");
+        DatabaseReference getURL = db.getInstance().getReference().child("Event").child(""+Event_ID).child("URL");
         getFirst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,11 +68,22 @@ public class EventActivity extends AppCompatActivity {
 
             }
         });
+        getURL.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                url = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         getLast.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 lName = dataSnapshot.getValue(String.class);
-                mEventName.setText(lName);
+                mLocation.setText(lName);
             }
 
             @Override
@@ -91,7 +107,7 @@ public class EventActivity extends AppCompatActivity {
 
 
 
-        mStorageRef.child(User_id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        mStorageRef.child("EventPictures").child(Event_ID + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'

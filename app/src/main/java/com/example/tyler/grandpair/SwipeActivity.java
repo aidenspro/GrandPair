@@ -15,6 +15,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
@@ -33,6 +35,7 @@ public class SwipeActivity extends Activity {
     private arrayAdapter arrayAdapter;
     private int i;
     private StorageReference mStorageRef;
+    private DatabaseReference event_db;
     private FirebaseAuth mAuth;
     private ImageView mImageView;
     String URL;
@@ -45,6 +48,9 @@ public class SwipeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        event_db = db.getInstance().getReference().child("Event");
+        i = 0;
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -92,7 +98,7 @@ public class SwipeActivity extends Activity {
                         .placeholder(R.mipmap.ic_launcher_round)
                         .error(R.mipmap.ic_launcher_round);
 
-                mStorageRef.child(i+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                mStorageRef.child("EventPictures").child(i+"pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 
                     @Override
 
@@ -113,7 +119,7 @@ public class SwipeActivity extends Activity {
                            // Toast.makeText(SwipeActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
                             //mImageView.setImageDrawable(drawable);
                         //} catch (MalformedURLException e) {
-                            i = 0;
+
                        //}
 
 
