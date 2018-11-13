@@ -6,104 +6,133 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity"
 
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="81dp">
 
+
+    <TextView
+        android:id="@+id/profile_text1"
+        android:layout_width="175dp"
+        android:layout_height="30dp"
+        android:background="#CCFFA500"
+        android:clickable="false"
+        android:focusable="false"
+        android:inputType="none"
+        android:text="Event Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/eventName"
+        app:layout_constraintStart_toStartOf="@+id/eventName" />
+
+    <TextView
+        android:id="@+id/profile_text2"
+        android:layout_width="175dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:background="#CCFFA500"
+        android:clickable="false"
+        android:focusable="false"
+        android:inputType="none"
+        android:text="Event Date"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/date"
+        app:layout_constraintStart_toEndOf="@+id/eventPicture" />
+
+    <TextView
+        android:id="@+id/profile_text3"
+        android:layout_width="175dp"
+        android:layout_height="29dp"
+        android:background="#CCFFA500"
+        android:clickable="false"
+        android:focusable="false"
+        android:inputType="none"
+        android:text="Event Address"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintStart_toStartOf="@+id/location" />
+
+    <TextView
+        android:id="@+id/scroll_text"
+        android:layout_width="365dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#CCFFA500"
+        android:clickable="false"
+        android:focusable="false"
+        android:inputType="none"
+        android:text="Attendees"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintStart_toStartOf="@+id/scroll"
+        app:layout_constraintTop_toBottomOf="@+id/eventPicture"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/eventName"
         android:layout_width="166dp"
-        android:layout_height="99dp"
-
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:gravity="center"
         android:hint="Event Name"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017" />
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_text3"
+        app:layout_constraintStart_toEndOf="@+id/eventPicture" />
 
     <TextView
         android:id="@+id/location"
         android:layout_width="166dp"
-        android:layout_height="94dp"
+        android:layout_height="74dp"
 
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:hint="Location"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014" />
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@+id/eventPicture"
+        app:layout_constraintTop_toBottomOf="@+id/profile_text3" />
 
     <ImageView
         android:id="@+id/eventPicture"
         android:layout_width="203dp"
-        android:layout_height="313dp"
+        android:layout_height="299dp"
 
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/location"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintStart_toStartOf="@+id/scroll_text"
+        app:layout_constraintTop_toTopOf="@+id/profile_text1" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="163dp"
-        android:layout_height="91dp"
+        android:layout_height="63dp"
 
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="236dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:inputType="date"
         android:text="Date"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/scroll_text"
+        app:layout_constraintStart_toEndOf="@+id/eventPicture"
         tools:text="Date" />
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="368dp"
-        android:layout_height="230dp"
+        android:layout_height="195dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="45dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventPicture"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/eventPicture">
 
 
     </ScrollView>
