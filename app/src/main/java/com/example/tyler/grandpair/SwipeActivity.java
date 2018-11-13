@@ -15,14 +15,20 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,10 +40,13 @@ public class SwipeActivity extends Activity {
     //private ArrayList<String> al;
     private arrayAdapter arrayAdapter;
     private int i;
+    private int j = 0;
     private StorageReference mStorageRef;
     private DatabaseReference event_db;
     private FirebaseAuth mAuth;
     private ImageView mImageView;
+    private int attendNum;
+    CountDownLatch done;
     String URL;
     ListView listView;
     List<cards> rowItems;
@@ -48,9 +57,12 @@ public class SwipeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
+
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         event_db = db.getInstance().getReference().child("Event");
+        DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child(""+j).child("Attending").push();
         i = 0;
+
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -84,11 +96,48 @@ public class SwipeActivity extends Activity {
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
                 makeToast(SwipeActivity.this, "Left!");
+                j++;
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                makeToast(SwipeActivity.this, "Right!");
+
+
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                DatabaseReference Attend = db.getInstance().getReference().child("Event").child("" + j).child("AttendNum");
+                done = new CountDownLatch(1);
+                Attend.addValueEventListener(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        attendNum = dataSnapshot.getValue(Integer.class);
+                        makeToast(SwipeActivity.this, "num " + attendNum);
+                        done.countDown();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        makeToast(SwipeActivity.this, "fail");
+                    }
+                });
+
+                try {
+                    done.await();
+
+                    DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + j).child("Attending").child("" + attendNum);
+                    attendNum = attendNum + 1;
+                    Attend.setValue(attendNum);
+
+                    Map newPost = new HashMap();
+                    newPost.put("User", User_id);
+                    addAttendee.setValue(newPost);
+
+                    makeToast(SwipeActivity.this, "Right!");
+
+                } catch (Exception e){
+                    makeToast(SwipeActivity.this, "fail");
+            }
+                j++;
             }
 
             @Override
@@ -153,8 +202,9 @@ public class SwipeActivity extends Activity {
                 Intent intent = new Intent(SwipeActivity.this, EventActivity.class);
                 //intent.putExtra(URL,i);
                 intent.putExtra("CURRENT_URL",URL);
+                intent.putExtra("EVENT_ID",j);
                 startActivity(intent);
-                finish();
+                //finish();
                 return;
 
             }

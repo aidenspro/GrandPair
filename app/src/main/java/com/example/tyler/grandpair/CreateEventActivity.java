@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.EventLog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,6 +87,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                             newPost.put("Name", firstName);
                                             newPost.put("Location", lastName);
                                             newPost.put("Date", age);
+                                            newPost.put("AttendNum", 0);
 
                                             current_user_db.setValue(newPost);
 
