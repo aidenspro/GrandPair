@@ -101,7 +101,7 @@ public class SwipeActivity extends Activity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-
+            int fAttend;
 
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
                 DatabaseReference Attend = db.getInstance().getReference().child("Event").child("" + j).child("AttendNum");
@@ -125,8 +125,9 @@ public class SwipeActivity extends Activity {
                     done.await();
 
                     DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + j).child("Attending").child("" + attendNum);
-                    attendNum = attendNum + 1;
-                    Attend.setValue(attendNum);
+
+                    fAttend = attendNum + 1;
+                    Attend.setValue(fAttend);
 
                     Map newPost = new HashMap();
                     newPost.put("User", User_id);
