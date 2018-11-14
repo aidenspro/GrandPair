@@ -37,10 +37,13 @@ public class arrayAdapter extends ArrayAdapter<cards>{
         switch(card_item.getProfileImageUrl()){
             case "default":
                 Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
+
                 break;
             default:
-                //Glide.clear(image);
+                //
+
                 Glide.with(convertView.getContext()).load(card_item.getProfileImageUrl()).into(image);
+
                 break;
         }
 

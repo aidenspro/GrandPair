@@ -14,7 +14,8 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="40sp"
-        tools:text="hello_world"/>
+        tools:text="hello_world"
+        android:scaleType="fitXY"/>
 
 
 

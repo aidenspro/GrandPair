@@ -80,6 +80,8 @@ public class SwipeActivity extends Activity {
 
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
+
+
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
@@ -101,18 +103,18 @@ public class SwipeActivity extends Activity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-            int fAttend;
+            int fAttend = 0;
 
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
                 DatabaseReference Attend = db.getInstance().getReference().child("Event").child("" + j).child("AttendNum");
-                done = new CountDownLatch(1);
+
                 Attend.addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         attendNum = dataSnapshot.getValue(Integer.class);
                         makeToast(SwipeActivity.this, "num " + attendNum);
-                        done.countDown();
+
                     }
 
                     @Override
@@ -122,9 +124,9 @@ public class SwipeActivity extends Activity {
                 });
 
                 try {
-                    done.await();
 
-                    DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + j).child("Attending").child("" + attendNum);
+
+                    DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + j).child("Attending");
 
                     fAttend = attendNum + 1;
                     Attend.setValue(fAttend);
@@ -138,7 +140,16 @@ public class SwipeActivity extends Activity {
                 } catch (Exception e){
                     makeToast(SwipeActivity.this, "fail");
             }
+                Intent intent = new Intent(SwipeActivity.this, EventActivity.class);
+                //intent.putExtra(URL,i);
+
+                intent.putExtra("EVENT_ID",j);
+                intent.putExtra("ATTEND_NUM",fAttend);
+                startActivity(intent);
+                //finish();
+
                 j++;
+
             }
 
             @Override
@@ -204,6 +215,7 @@ public class SwipeActivity extends Activity {
                 //intent.putExtra(URL,i);
                 intent.putExtra("CURRENT_URL",URL);
                 intent.putExtra("EVENT_ID",j);
+                intent.putExtra("ATTEND_NUM",attendNum);
                 startActivity(intent);
                 //finish();
                 return;
