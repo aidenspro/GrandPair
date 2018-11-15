@@ -1,6 +1,7 @@
 package com.example.tyler.grandpair;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -69,7 +70,7 @@ public class EventActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        String User_id = mAuth.getCurrentUser().getUid();
+        final String User_id = mAuth.getCurrentUser().getUid();
         mImageView =(ImageView)findViewById(R.id.eventPicture);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final DatabaseReference getName = db.getInstance().getReference().child("Users").child(User_id).child("first name");
@@ -192,7 +193,7 @@ public class EventActivity extends AppCompatActivity {
                                     final TextView mName;
 
 
-                                    String c_User_Id;
+                                    final String c_User_Id;
                                     c_User_Id = snapshot.child("User").getValue(String.class);
                                     DatabaseReference getName = db.getInstance().getReference().child("Users").child(c_User_Id).child("first name");
                                     DatabaseReference getAge = db.getInstance().getReference().child("Users").child(c_User_Id).child("age");
@@ -239,6 +240,17 @@ public class EventActivity extends AppCompatActivity {
                                             try {
                                                 URL url = new URL(uri.toString());
                                                 Glide.with(getApplicationContext()).load(uri).into(mPic);
+                                                mPic.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        Intent intent = new Intent(EventActivity.this, ViewOtherActivity.class);
+                                                        intent.putExtra("USER_ID",c_User_Id);
+                                                        startActivity(intent);
+
+                                                        return;
+
+                                                    }
+                                                });
 
                                                 //Toast.makeText(Profitivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
                                                 //mImageView.setImageDrawable(drawable);
@@ -262,6 +274,7 @@ public class EventActivity extends AppCompatActivity {
                                         public void run() {
 
                                             ll.addView(v);
+
 
                                         }
                                     });

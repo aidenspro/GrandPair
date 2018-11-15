@@ -37,7 +37,7 @@ public class SwipeActivity extends Activity {
     //private ArrayList<String> al;
     private arrayAdapter arrayAdapter;
     private int i = 0;
-    private int j = 0;
+    private int j = -1;
     private StorageReference mStorageRef;
     private DatabaseReference event_db;
     private FirebaseAuth mAuth;
@@ -90,6 +90,7 @@ public class SwipeActivity extends Activity {
                 Log.d("LIST", "removed object!");
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -99,7 +100,7 @@ public class SwipeActivity extends Activity {
                 //If you want to use it just cast it (String) dataObject
                 //makeToast(SwipeActivity.this, "Left!");
 
-                j++;
+
             }
 
             @Override
@@ -121,7 +122,7 @@ public class SwipeActivity extends Activity {
                             startActivity(intent);
 
                         }
-                        j++;
+
 
 
                     }
@@ -138,14 +139,13 @@ public class SwipeActivity extends Activity {
                 //finish();
                 swiped = false;
 
+
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                if(itemsInAdapter < 1)
-                new Thread(new Runnable() {
-                    public void run() {
 
+                if(itemsInAdapter < 1)
                         mStorageRef.child("EventPictures").child(i + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
@@ -154,7 +154,8 @@ public class SwipeActivity extends Activity {
                                 rowItems.add(Item);
                                 arrayAdapter.notifyDataSetChanged();
                                 Log.d("LIST", "notified");
-
+                                i++;
+                                j++;
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -162,9 +163,8 @@ public class SwipeActivity extends Activity {
                                 // Handle any errors
                             }
                         });
-                        i++;
-                    }
-                }).start();
+
+
 
 
                 //hello = mImageView;

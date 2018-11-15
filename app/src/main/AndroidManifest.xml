@@ -46,7 +46,8 @@
             android:name=".EventActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/pear.NoActionBar" />
-        <activity android:name=".CreateEventActivity"></activity>
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".ViewOtherActivity"></activity>
     </application>
 
 </manifest>
