@@ -69,8 +69,9 @@
         android:layout_height="70dp"
         android:layout_marginTop="230dp"
         android:background="#E6FEFFFE"
-        android:hint="Date"
-        android:inputType="number"/>
+        android:hint="Date: 01/01/01"
+        android:inputType="date"
+        android:singleLine="false" />
 
     <TextView
         android:id="@+id/profile_text3"

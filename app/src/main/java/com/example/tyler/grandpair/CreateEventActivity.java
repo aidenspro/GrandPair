@@ -92,6 +92,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                             current_user_db.setValue(newPost);
 
                                             Intent intent = new Intent(CreateEventActivity.this, ChoicesActivity.class);
+
                                             startActivity(intent);
                                             eventNum++;
                                             event_db.child("NumEvents").setValue(eventNum);

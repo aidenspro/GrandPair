@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,9 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import butterknife.BindView;
@@ -39,13 +36,15 @@ public class SwipeActivity extends Activity {
     private cards cards_data[];
     //private ArrayList<String> al;
     private arrayAdapter arrayAdapter;
-    private int i;
+    private int i = 0;
     private int j = 0;
     private StorageReference mStorageRef;
     private DatabaseReference event_db;
     private FirebaseAuth mAuth;
     private ImageView mImageView;
+    private boolean swiped;
     private int attendNum;
+    private int occurence = 0;
     CountDownLatch done;
     String URL;
     ListView listView;
@@ -60,8 +59,8 @@ public class SwipeActivity extends Activity {
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         event_db = db.getInstance().getReference().child("Event");
-        DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child(""+j).child("Attending").push();
-        i = 0;
+        DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child(""+j).child("Attending");
+
 
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -84,6 +83,7 @@ public class SwipeActivity extends Activity {
 
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+
             @Override
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
@@ -97,106 +97,78 @@ public class SwipeActivity extends Activity {
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
-                makeToast(SwipeActivity.this, "Left!");
+                //makeToast(SwipeActivity.this, "Left!");
+
                 j++;
             }
 
             @Override
-            public void onRightCardExit(Object dataObject) {
-            int fAttend = 0;
+            public void onRightCardExit(final Object dataObject) {
 
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                DatabaseReference Attend = db.getInstance().getReference().child("Event").child("" + j).child("AttendNum");
-
-                Attend.addValueEventListener(new ValueEventListener() {
+                new Thread(new Runnable() {
+                    public void run() {
+                event_db.child(""+j).child("AttendNum").addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         attendNum = dataSnapshot.getValue(Integer.class);
-                        makeToast(SwipeActivity.this, "num " + attendNum);
+                        if(swiped == false) {
+                            Intent intent = new Intent(SwipeActivity.this, EventActivity.class);
+                            intent.putExtra("ATTEND_NUM", attendNum);
+                            intent.putExtra("EVENT_ID", j);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            swiped = true;
+                            startActivity(intent);
+
+                        }
+                        j++;
+
 
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        makeToast(SwipeActivity.this, "fail");
+
                     }
+
                 });
-
-                try {
-
-
-                    DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + j).child("Attending");
-
-                    fAttend = attendNum + 1;
-                    Attend.setValue(fAttend);
-
-                    Map newPost = new HashMap();
-                    newPost.put("User", User_id);
-                    addAttendee.setValue(newPost);
-
-                    makeToast(SwipeActivity.this, "Right!");
-
-                } catch (Exception e){
-                    makeToast(SwipeActivity.this, "fail");
-            }
-                Intent intent = new Intent(SwipeActivity.this, EventActivity.class);
+                    }
+                }).start();
                 //intent.putExtra(URL,i);
-
-                intent.putExtra("EVENT_ID",j);
-                intent.putExtra("ATTEND_NUM",fAttend);
-                startActivity(intent);
                 //finish();
-
-                j++;
+                swiped = false;
 
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                final RequestOptions options = new RequestOptions()
-                        .centerCrop()
-                        .placeholder(R.mipmap.ic_launcher_round)
-                        .error(R.mipmap.ic_launcher_round);
+                if(itemsInAdapter < 1)
+                new Thread(new Runnable() {
+                    public void run() {
 
-                mStorageRef.child("EventPictures").child(i+"pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        mStorageRef.child("EventPictures").child(i + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
 
-                    @Override
+                                cards Item = new cards(User_id, "Event", uri.toString());
+                                rowItems.add(Item);
+                                arrayAdapter.notifyDataSetChanged();
+                                Log.d("LIST", "notified");
 
-                    public void onSuccess(Uri uri) {
-                        // Got the download URL for 'users/me/profile.png'
-                        //Drawable drawable = LoadImageFromWebOperations(uri.toString());
-                        //try {
-                            URL = (uri.toString());
-                            //Glide.with(getApplicationContext()).load(uri).apply(options).into(mImageView);
-                            //mImageView =(ImageView)findViewById(R.id.image);
-                           // mImageView.setImageResource(R.drawable.login);
-                            cards Item = new cards(User_id,"Event",uri.toString());
-                            rowItems.add(Item);
-                            arrayAdapter.notifyDataSetChanged();
-                            Log.d("LIST", "notified");
-                            i++;
-
-                           // Toast.makeText(SwipeActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
-                            //mImageView.setImageDrawable(drawable);
-                        //} catch (MalformedURLException e) {
-
-                       //}
-
-
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                        i++;
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
-
+                }).start();
 
 
                 //hello = mImageView;
                 //al.add("Swipe ".concat(String.valueOf(i)));
-
             }
 
             @Override
@@ -210,12 +182,13 @@ public class SwipeActivity extends Activity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                makeToast(SwipeActivity.this, "Clicked!");
+                //makeToast(SwipeActivity.this, "Clicked!");
                 Intent intent = new Intent(SwipeActivity.this, EventActivity.class);
                 //intent.putExtra(URL,i);
-                intent.putExtra("CURRENT_URL",URL);
+                intent.putExtra("HOW",1);
                 intent.putExtra("EVENT_ID",j);
                 intent.putExtra("ATTEND_NUM",attendNum);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 //finish();
                 return;
