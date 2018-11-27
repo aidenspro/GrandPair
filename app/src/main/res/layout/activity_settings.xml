@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,64 +7,83 @@
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
-
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="510dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileSettings"
+        app:layout_constraintVertical_bias="0.464" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <Button
+        android:id="@+id/profileSettings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Profile Settings"
+        app:layout_constraintBottom_toTopOf="@+id/createEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
 
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:switchMinWidth="100dp"
-                android:text="Switch" />
+    <Button
+        android:id="@+id/Admin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="35dp"
+        android:layout_weight="1"
+        android:text="Admin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeEvent" />
 
-            <Switch
-                android:id="@+id/switch2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:switchMinWidth="100dp"
-                android:text="Switch" />
+    <Button
+        android:id="@+id/changeEmail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="31dp"
+        android:layout_weight="1"
+        android:text="Change Email"
+        app:layout_constraintBottom_toTopOf="@+id/changePassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <Switch
-                android:id="@+id/Disvoverable"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:checked="false"
-                android:switchMinWidth="100dp"
-                android:switchPadding="20dp"
-                android:text="Disvoverable"
-                tools:checked="false" />
+    <Button
+        android:id="@+id/changePassword"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Change Password"
+        app:layout_constraintBottom_toTopOf="@+id/profileSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
 
-            <Button
-                android:id="@+id/profileSettings"
-                android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="1"
+    <Button
+        android:id="@+id/createEvent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:text="Create Event"
+        app:layout_constraintBottom_toTopOf="@+id/removeEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileSettings" />
 
-                android:text="Profile Settings"
-
-                />
-
-            <Button
-                android:id="@+id/createEvent"
-                android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="1"
-
-                android:text="Create Event"
-
-                />
-
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+    <Button
+        android:id="@+id/removeEvent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Remove Event"
+        app:layout_constraintBottom_toTopOf="@+id/Admin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createEvent" />
+    </android.support.constraint.ConstraintLayout>

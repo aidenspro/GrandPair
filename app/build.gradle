@@ -8,6 +8,7 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,6 +31,7 @@ dependencies {
     implementation 'com.lorentzos.swipecards:library:1.0.9'
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
