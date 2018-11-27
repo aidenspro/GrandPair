@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="0dp"
-        android:layout_height="510dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileSettings"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileSettings"
-        app:layout_constraintVertical_bias="0.464" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/profileSettings"
@@ -27,13 +26,12 @@
         app:layout_constraintBottom_toTopOf="@+id/createEvent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
+        app:layout_constraintTop_toBottomOf="@+id/removeAccount" />
 
     <Button
         android:id="@+id/Admin"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="35dp"
         android:layout_weight="1"
         android:text="Admin"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +43,6 @@
         android:id="@+id/changeEmail"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="31dp"
         android:layout_weight="1"
         android:text="Change Email"
         app:layout_constraintBottom_toTopOf="@+id/changePassword"
@@ -59,16 +56,26 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Change Password"
-        app:layout_constraintBottom_toTopOf="@+id/profileSettings"
+        app:layout_constraintBottom_toTopOf="@+id/removeAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
 
     <Button
+        android:id="@+id/removeAccount"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Remove Account"
+        app:layout_constraintBottom_toTopOf="@+id/profileSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
+
+    <Button
         android:id="@+id/createEvent"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
         android:layout_weight="1"
         android:text="Create Event"
         app:layout_constraintBottom_toTopOf="@+id/removeEvent"
