@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
 
+
+
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,19 +57,20 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
+                        if (!task.isSuccessful() ) {
                             Toast.makeText(LoginActivity.this, "Sign in Error", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, LoginRegActivity.class);
                             startActivity(intent);
                             finish();
                             return;
-                        }else{
+                        }else if (mAuth.getCurrentUser().isEmailVerified()){
                             Intent intent = new Intent(LoginActivity.this, ChoicesActivity.class);
-                            System.out.println("here");
                             startActivity(intent);
                             finish();
                             return;
                         }
+                        else
+                            Toast.makeText(LoginActivity.this, "Account not Verified", Toast.LENGTH_SHORT).show();
 
                     }
                 });

@@ -61,6 +61,7 @@ public class CreateProfile extends AppCompatActivity {
                 newPost.put("first name", firstName);
                 newPost.put("last name", lastName);
                 newPost.put("age", age);
+                newPost.put("admin", 0);
 
                 current_user_db.setValue(newPost);
 
