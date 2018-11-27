@@ -65,6 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(RegistrationActivity.this, "Account Created!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegistrationActivity.this, CreateProfile.class);
+                            mAuth.getCurrentUser().sendEmailVerification();
                             startActivity(intent);
                             finish();
                             return;
