@@ -61,7 +61,7 @@ public void forgotPassword() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Account Deleted!");
+                            Log.d(TAG, "Account Deleted!"); //afaf
                         }
                     }
                 });
