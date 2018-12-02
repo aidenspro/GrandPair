@@ -1,9 +1,12 @@
 package com.example.tyler.grandpair;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +30,7 @@ public class ViewOtherActivity extends AppCompatActivity {
     private TextView mAge;
     private TextView mFirstName;
     private TextView mLastName;
+    private Button sendMessage;
     private String fName;
     private String lName;
     private String age;
@@ -37,12 +41,14 @@ public class ViewOtherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_view_other);
         mFirstName = (TextView) findViewById(R.id.firstName);
         mLastName = (TextView) findViewById(R.id.lastName);
         mAge = (TextView) findViewById(R.id.age);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         User_id = getIntent().getStringExtra("USER_ID");
+        sendMessage = (Button) findViewById(R.id.sendMessage);
+
 
 
         mImageView =(ImageView)findViewById(R.id.profilePicture);
@@ -50,6 +56,7 @@ public class ViewOtherActivity extends AppCompatActivity {
         final DatabaseReference getFirst = db.getInstance().getReference().child("Users").child(User_id).child("first name");
         DatabaseReference getLast = db.getInstance().getReference().child("Users").child(User_id).child("last name");
         DatabaseReference getAge = db.getInstance().getReference().child("Users").child(User_id).child("age");
+
         getFirst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -113,6 +120,18 @@ public class ViewOtherActivity extends AppCompatActivity {
                 // Handle any errors
             }
         });
+        sendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewOtherActivity.this, MessageActivity.class);
+                intent.putExtra("USER_ID",User_id);
+                startActivity(intent);
+
+                return;
+            }
+        });
+
+
 
     }
 

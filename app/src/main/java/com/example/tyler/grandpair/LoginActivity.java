@@ -63,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                             return;
-                        }else if (mAuth.getCurrentUser().isEmailVerified()){
+                        //}else if (mAuth.getCurrentUser().isEmailVerified()){
+                        }else if (task.isSuccessful()){
                             Intent intent = new Intent(LoginActivity.this, ChoicesActivity.class);
                             startActivity(intent);
                             finish();

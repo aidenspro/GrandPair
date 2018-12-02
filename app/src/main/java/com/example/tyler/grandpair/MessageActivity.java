@@ -1,7 +1,6 @@
 package com.example.tyler.grandpair;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,73 +28,68 @@ import com.google.firebase.storage.StorageReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
-public class AdminActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    private ImageView mImageView;
-    private TextView mDate;
-    private TextView mLocation;
-    private int attendNum;
-
-
-    private TextView mEventName;
-    private ScrollView mScroll;
-
+public class MessageActivity extends AppCompatActivity {
     private String fName;
     private String lName;
     private String url;
     private String age;
     private int Event_ID;
     private int how;
+    private FirebaseAuth mAuth;
+    private ImageView mImageView;
+    private TextView mDate;
+    private TextView mLocation;
+    private int attendNum;
+    private TextView mEventName;
+    private ScrollView mScroll;
     private StorageReference mStorageRef;
-
+    private String User_Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin);
-        mScroll = (ScrollView) findViewById(R.id.scroll);
-        mEventName = (TextView) findViewById(R.id.location);
-        mLocation = (TextView) findViewById(R.id.eventName);
+        setContentView(R.layout.activity_message);
 
+        mScroll = (ScrollView) findViewById(R.id.scroll);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+        attendNum = getIntent().getIntExtra("ATTEND_NUM", 0);
+        how = getIntent().getIntExtra("HOW", 0);
+        User_Id = getIntent().getStringExtra("USER_ID");
 
         mAuth = FirebaseAuth.getInstance();
 
         mImageView = (ImageView) findViewById(R.id.eventPicture);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-
-
-
-        FirebaseDatabase.getInstance().getReference().child("Event")
+        FirebaseDatabase.getInstance().getReference().child("Users").child(User_Id)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         final FirebaseDatabase db = FirebaseDatabase.getInstance();
                         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        //View v = inflater.inflate(R.layout.profilemini, null);
-                        final LinearLayout ll = new LinearLayout(AdminActivity.this);
+
+                        final LinearLayout ll = new LinearLayout(MessageActivity.this);
                         ll.setOrientation(LinearLayout.VERTICAL);
-                        for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
                             new Thread(new Runnable() {
                                 public void run() {
 
                                     final ImageView mPic;
-                                    final TextView mLocation;
+                                    final TextView mAge;
                                     final TextView mName;
 
 
-                                    //try {
+                                    final String c_User_Id;
 
-                                    DatabaseReference getName = snapshot.getRef().child("Name");
-                                    DatabaseReference getLocation = snapshot.getRef().child("Location");
+                                    c_User_Id = User_Id;
+                                    DatabaseReference getName = db.getInstance().getReference().child("Users").child(c_User_Id).child("first name");
+                                    DatabaseReference getAge = db.getInstance().getReference().child("Users").child(c_User_Id).child("age");
 
-                                    //for(int i = 0; i < attendNum; i++) {
-                                    final View v = inflater.inflate(R.layout.eventmini, null);
 
-                                    mName = (TextView) v.findViewById(R.id.eventName);
-                                    // mLocation = (TextView) v.findViewById(R.id.ageNum);
+                                    final View v = inflater.inflate(R.layout.profilemini, null);
+
+                                    mName = (TextView) v.findViewById(R.id.nameMini);
+                                    mAge = (TextView) v.findViewById(R.id.ageNum);
                                     mPic = (ImageView) v.findViewById(R.id.miniPic);
 
 
@@ -112,49 +107,29 @@ public class AdminActivity extends AppCompatActivity {
 
                                         }
                                     });
-                                    getLocation.addValueEventListener(new ValueEventListener() {
+                                    getAge.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             fName = dataSnapshot.getValue(String.class);
-                                            //mLocation.setText(fName);
+                                            mAge.setText(fName);
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                             fName = "User";
-                                            //mLocation .setText(fName);
+                                            mAge.setText(fName);
                                         }
                                     });
 
-                                    //if(fName == ""){
-                                    //  mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").delete();
-                                    //  db.getReference().child("Event").child(snapshot.toString()).removeValue();
-                                    //}else {
-                                    mStorageRef.child("EventPictures").child(snapshot.getKey() + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                                    mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
-                                            // Got the download URL for 'users/me/profile.png'
-                                            //Drawable drawable = LoadImageFromWebOperations(uri.toString());
+
                                             try {
                                                 URL url = new URL(uri.toString());
                                                 Glide.with(getApplicationContext()).load(uri).into(mPic);
-                                                mPic.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View view) {
-                                                        //makeToast(SwipeActivity.this, "Clicked!");
-                                                        Intent intent = new Intent(AdminActivity.this, EventActivity.class);
-                                                        //intent.putExtra(URL,i);
-                                                        intent.putExtra("HOW",1);
-                                                        intent.putExtra("EVENT_ID",dataSnapshot.getKey());
-                                                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                                        startActivity(intent);
-                                                        //finish();
-                                                        return;
-                                                    }
-                                                });
 
-                                                //Toast.makeText(Profitivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
-                                                //mImageView.setImageDrawable(drawable);
                                             } catch (MalformedURLException e) {
                                                 e.printStackTrace();
 
@@ -176,20 +151,20 @@ public class AdminActivity extends AppCompatActivity {
                                         @Override
                                         public void onFailure(@NonNull Exception exception) {
                                             // Handle any errors
+                                            Toast.makeText(MessageActivity.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                                            FirebaseDatabase.getInstance().getReference().child("Event").child(""+Event_ID).child("Attending").child(dataSnapshot.getKey()).removeValue();
+                                            try {
+                                                mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").delete();
+                                            }catch (Exception e){
 
+                                            }
                                         }
                                     });
-                                    // }
-
-
-                                    //}catch(Exception e) {
-
-                                    // }
 
                                 }
                             }).start();
 
-                        }
+
                         mScroll.addView(ll);
                     }
 
@@ -197,6 +172,6 @@ public class AdminActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
     }
 }
+

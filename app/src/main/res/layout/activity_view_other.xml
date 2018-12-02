@@ -29,10 +29,11 @@
         android:layout_height="0dp"
 
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="408dp"
         android:gravity="center"
         android:hint="First Name"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/lastName"
+        app:layout_constraintBottom_toTopOf="@+id/sendMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/lastName"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,9 +72,9 @@
 
     <TextView
         android:id="@+id/editText3"
-        android:layout_width="0dp"
-        android:layout_height="178dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="379dp"
+        android:layout_height="132dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/border"
         android:ems="10"
         android:gravity="center"
@@ -86,7 +87,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
+    <Button
+        android:id="@+id/sendMessage"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/button"
+        android:text="Send Message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstName"
+        app:layout_constraintVertical_bias="0.968" />
 
 
 </android.support.constraint.ConstraintLayout>

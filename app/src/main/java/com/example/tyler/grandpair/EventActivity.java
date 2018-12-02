@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,13 +63,6 @@ public class EventActivity extends AppCompatActivity {
         how = getIntent().getIntExtra("HOW",0);
         Event_ID = getIntent().getIntExtra("EVENT_ID",0);
 
-
-
-
-
-
-
-
         mAuth = FirebaseAuth.getInstance();
         final String User_id = mAuth.getCurrentUser().getUid();
         mImageView =(ImageView)findViewById(R.id.eventPicture);
@@ -108,11 +102,6 @@ public class EventActivity extends AppCompatActivity {
 
             }
         }
-
-
-
-
-
 
         getNum.addValueEventListener(new ValueEventListener() {
 
@@ -194,90 +183,110 @@ public class EventActivity extends AppCompatActivity {
 
 
                                     final String c_User_Id;
-                                    c_User_Id = snapshot.child("User").getValue(String.class);
-                                    DatabaseReference getName = db.getInstance().getReference().child("Users").child(c_User_Id).child("first name");
-                                    DatabaseReference getAge = db.getInstance().getReference().child("Users").child(c_User_Id).child("age");
+                                    //try {
+                                        c_User_Id = snapshot.child("User").getValue(String.class);
+                                        DatabaseReference getName = db.getInstance().getReference().child("Users").child(c_User_Id).child("first name");
+                                        DatabaseReference getAge = db.getInstance().getReference().child("Users").child(c_User_Id).child("age");
 
-                                    //for(int i = 0; i < attendNum; i++) {
-                                    final View v = inflater.inflate(R.layout.profilemini, null);
+                                        //for(int i = 0; i < attendNum; i++) {
+                                        final View v = inflater.inflate(R.layout.profilemini, null);
 
-                                    mName = (TextView) v.findViewById(R.id.nameMini);
-                                    mAge = (TextView) v.findViewById(R.id.ageNum);
-                                    mPic = (ImageView) v.findViewById(R.id.miniPic);
-
-
-                                    getName.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            fName = dataSnapshot.getValue(String.class);
-                                            mName.setText(fName);
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                    getAge.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            fName = dataSnapshot.getValue(String.class);
-                                            mAge.setText(fName);
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });
+                                        mName = (TextView) v.findViewById(R.id.nameMini);
+                                        mAge = (TextView) v.findViewById(R.id.ageNum);
+                                        mPic = (ImageView) v.findViewById(R.id.miniPic);
 
 
-                                    mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            // Got the download URL for 'users/me/profile.png'
-                                            //Drawable drawable = LoadImageFromWebOperations(uri.toString());
-                                            try {
-                                                URL url = new URL(uri.toString());
-                                                Glide.with(getApplicationContext()).load(uri).into(mPic);
-                                                mPic.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View view) {
-                                                        Intent intent = new Intent(EventActivity.this, ViewOtherActivity.class);
-                                                        intent.putExtra("USER_ID",c_User_Id);
-                                                        startActivity(intent);
-
-                                                        return;
-
-                                                    }
-                                                });
-
-                                                //Toast.makeText(Profitivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
-                                                //mImageView.setImageDrawable(drawable);
-                                            } catch (MalformedURLException e) {
-                                                e.printStackTrace();
+                                        getName.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                fName = dataSnapshot.getValue(String.class);
+                                                mName.setText(fName);
                                             }
 
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                fName = "Removed";
+                                                mName.setText(fName);
 
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                            // Handle any errors
-                                        }
-                                    });
+                                            }
+                                        });
+                                        getAge.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                fName = dataSnapshot.getValue(String.class);
+                                                mAge.setText(fName);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                fName = "User";
+                                                mAge.setText(fName);
+                                            }
+                                        });
+
+                                        //if(fName == ""){
+                                          //  mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").delete();
+                                          //  db.getReference().child("Event").child(snapshot.toString()).removeValue();
+                                        //}else {
+                                            mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    // Got the download URL for 'users/me/profile.png'
+                                                    //Drawable drawable = LoadImageFromWebOperations(uri.toString());
+                                                    try {
+                                                        URL url = new URL(uri.toString());
+                                                        Glide.with(getApplicationContext()).load(uri).into(mPic);
+                                                        mPic.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                Intent intent = new Intent(EventActivity.this, ViewOtherActivity.class);
+                                                                intent.putExtra("USER_ID", c_User_Id);
+                                                                startActivity(intent);
+
+                                                                return;
+
+                                                            }
+                                                        });
+
+                                                        //Toast.makeText(Profitivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
+                                                        //mImageView.setImageDrawable(drawable);
+                                                    } catch (MalformedURLException e) {
+                                                        e.printStackTrace();
+
+                                                    }
+
+                                                    runOnUiThread(new Runnable() {
+
+                                                        @Override
+                                                        public void run() {
+
+                                                            ll.addView(v);
 
 
-                                    runOnUiThread(new Runnable() {
+                                                        }
+                                                    });
 
-                                        @Override
-                                        public void run() {
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception exception) {
+                                                    // Handle any errors
+                                                    Toast.makeText(EventActivity.this, snapshot.getKey(), Toast.LENGTH_SHORT).show();
+                                                    FirebaseDatabase.getInstance().getReference().child("Event").child(""+Event_ID).child("Attending").child(snapshot.getKey()).removeValue();
+                                                    try {
+                                                        mStorageRef.child("UserPictures").child(c_User_Id + "pic1.jpg").delete();
+                                                    }catch (Exception e){
 
-                                            ll.addView(v);
+                                                    }
+                                                }
+                                            });
+                                       // }
 
 
-                                        }
-                                    });
+                                    //}catch(Exception e) {
+
+                                   // }
+
                                 }
                             }).start();
 
