@@ -51,7 +51,8 @@
             android:theme="@style/pear.NoActionBar" />
         <activity android:name=".CreateEventActivity" />
         <activity android:name=".ViewOtherActivity" />
-        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".ViewMessagesActivity"></activity>
     </application>
 
 </manifest>

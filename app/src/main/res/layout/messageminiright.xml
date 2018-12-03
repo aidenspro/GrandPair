@@ -13,14 +13,14 @@
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/miniPic"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069"
+        app:layout_constraintVertical_bias="0.05"
         tools:text="Message" />
 
 

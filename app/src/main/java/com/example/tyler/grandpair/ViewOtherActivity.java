@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,8 +35,13 @@ public class ViewOtherActivity extends AppCompatActivity {
     private String fName;
     private String lName;
     private String age;
+    private String USER_ID;
     private String User_id;
     private StorageReference mStorageRef;
+    private int messageNum;
+    private int messageNum2;
+    private FirebaseDatabase db;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -46,18 +52,41 @@ public class ViewOtherActivity extends AppCompatActivity {
         mLastName = (TextView) findViewById(R.id.lastName);
         mAge = (TextView) findViewById(R.id.age);
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        User_id = getIntent().getStringExtra("USER_ID");
+        USER_ID = getIntent().getStringExtra("USER_ID");
         sendMessage = (Button) findViewById(R.id.sendMessage);
-
-
-
         mImageView =(ImageView)findViewById(R.id.profilePicture);
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        final DatabaseReference getFirst = db.getInstance().getReference().child("Users").child(User_id).child("first name");
-        DatabaseReference getLast = db.getInstance().getReference().child("Users").child(User_id).child("last name");
-        DatabaseReference getAge = db.getInstance().getReference().child("Users").child(User_id).child("age");
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
+        User_id = mAuth.getCurrentUser().getUid();
+        final DatabaseReference getFirst = db.getInstance().getReference().child("Users").child(USER_ID).child("first name");
+        DatabaseReference getLast = db.getInstance().getReference().child("Users").child(USER_ID).child("last name");
+        DatabaseReference getAge = db.getInstance().getReference().child("Users").child(USER_ID).child("age");
 
-        DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(User_id).child("Messages").child(User_id);
+        DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(USER_ID).child("Messages").child(User_id).child("Messages");
+        DatabaseReference other_user_db = db.getInstance().getReference().child("Users").child(User_id).child("Messages").child(USER_ID).child("Messages");
+
+
+        current_user_db.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    messageNum = dataSnapshot.child("MessageNum").getValue(Integer.class);
+                }catch (Exception e){
+                    DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(USER_ID).child("Messages").child(User_id).child("Messages");
+                    current_user_db.child("MessageNum").setValue(0);
+                    DatabaseReference other_user_db = db.getInstance().getReference().child("Users").child(User_id).child("Messages").child(USER_ID).child("Messages");
+                    other_user_db.child("MessageNum").setValue(0);
+                    messageNum = 0;
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                messageNum = 0;
+            }
+        });
+
+
 
 
         getFirst.addValueEventListener(new ValueEventListener() {
@@ -100,7 +129,7 @@ public class ViewOtherActivity extends AppCompatActivity {
 
 
 
-        mStorageRef.child("UserPictures").child(User_id + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        mStorageRef.child("UserPictures").child(USER_ID + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
@@ -127,7 +156,9 @@ public class ViewOtherActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewOtherActivity.this, MessageActivity.class);
-                intent.putExtra("USER_ID",User_id);
+                intent.putExtra("USER_ID",USER_ID);
+                intent.putExtra("MESSAGE_NUM",messageNum);
+
                 startActivity(intent);
 
                 return;

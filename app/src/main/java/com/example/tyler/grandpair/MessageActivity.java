@@ -1,13 +1,14 @@
 package com.example.tyler.grandpair;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -53,6 +54,9 @@ public class MessageActivity extends AppCompatActivity {
     private Button sendMessage;
     private EditText messageBox;
     private int messageNum;
+    private int messageNum2;
+    private String User_id;
+
 
 
     @Override
@@ -63,49 +67,47 @@ public class MessageActivity extends AppCompatActivity {
         mScroll = (ScrollView) findViewById(R.id.scroll);
         mScroll2 = (ScrollView) findViewById(R.id.scroll2);
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        attendNum = getIntent().getIntExtra("ATTEND_NUM", 0);
+        messageNum = getIntent().getIntExtra("MESSAGE_NUM", 0);
+        messageNum2 = getIntent().getIntExtra("MESSAGE_NUM", 0);
         how = getIntent().getIntExtra("HOW", 0);
         USER_ID = getIntent().getStringExtra("USER_ID");
         messageBox =(EditText) findViewById(R.id.messageBox);
         mAuth = FirebaseAuth.getInstance();
-        messageNum = 0;
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+        User_id = mAuth.getCurrentUser().getUid();
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String message = messageBox.getText().toString();
 
-                String User_id = mAuth.getCurrentUser().getUid();
+
+
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
-                DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(User_id).child("Messages").child(USER_ID).child("Messages");
-
-                    current_user_db.addValueEventListener(new ValueEventListener() {
-
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            try {
-                                messageNum = dataSnapshot.child("MessageNum").getValue(Integer.class);
-                            }catch (Exception e){
-                                messageNum = -1;
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            messageNum = 0;
-                        }
-                    });
-
-                    if(messageNum == -1){
-                        current_user_db.child("MessageNum").setValue(0);}
-
+                DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(USER_ID).child("Messages").child(User_id).child("Messages");
 
                 Map newPost = new HashMap();
                 newPost.put("message", message);
-
+                newPost.put("Type", "Recieved");
                 current_user_db.child(""+ messageNum).setValue(newPost);
                 messageNum++;
                 current_user_db.child("MessageNum").setValue(messageNum);
+
+
+
+                db = FirebaseDatabase.getInstance();
+                DatabaseReference other_user_db = db.getInstance().getReference().child("Users").child(User_id).child("Messages").child(USER_ID).child("Messages");
+
+                newPost = new HashMap();
+                newPost.put("message", message);
+                newPost.put("Type", "Sent");
+                other_user_db.child(""+ messageNum2).setValue(newPost);
+                messageNum2++;
+                other_user_db.child("MessageNum").setValue(messageNum2);
+
             }
+
+
                 });
 
 
@@ -227,32 +229,45 @@ public class MessageActivity extends AppCompatActivity {
                 });
 
 
-        FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Messages").child(USER_ID).child("Messages")
+        FirebaseDatabase.getInstance().getReference().child("Users").child(User_id).child("Messages").child(USER_ID).child("Messages")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
-                        final FirebaseDatabase db = FirebaseDatabase.getInstance();
+
                         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        //View v = inflater.inflate(R.layout.profilemini, null);
                         final LinearLayout ll = new LinearLayout(MessageActivity.this);
                         ll.setOrientation(LinearLayout.VERTICAL);
+                        ll.setY(100);
+
+
                         for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            new Thread(new Runnable() {
-                                public void run() {
 
-                                    final TextView mMessage;
+                            final TextView mMessage;
+                            TextView m1;
+                            final View f = inflater.inflate(R.layout.messagemini, null);
+                            final View g = inflater.inflate(R.layout.messageminiright, null);
 
-                                    final View v = inflater.inflate(R.layout.messagemini, null);
+                            try {
+                                if (snapshot.child("Type").getValue(String.class).equals("Sent")) {
+                                    m1 = (TextView) f.findViewById(R.id.message);
+                                    m1.setBackgroundColor(Color.GREEN);
+                                } else {
+                                    m1 = (TextView) g.findViewById(R.id.message);
+                                    m1.setBackgroundColor(Color.BLUE);
+                                }
+                            }catch(Exception e){
+                                m1 = (TextView) f.findViewById(R.id.message);
+                            }
 
-                                    mMessage = (TextView) v.findViewById(R.id.message);
+                            mMessage = m1;
 
 
-                                    Toast.makeText(MessageActivity.this, "here", Toast.LENGTH_SHORT).show();
                                     snapshot.getRef().child("message").addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             fMessage = snapshot.child("message").getValue(String.class);
                                             mMessage.setText(fMessage);
+
                                         }
 
                                         @Override
@@ -263,9 +278,17 @@ public class MessageActivity extends AppCompatActivity {
                                         }
                                     });
 
-
+                            try {
+                                if (snapshot.child("Type").getValue(String.class).equals("Sent")) {
+                                    m1.setBackgroundColor(Color.GREEN);
+                                    ll.addView(f);
+                                } else {
+                                    m1.setBackgroundColor(Color.BLUE);
+                                    ll.addView(g);
                                 }
-                            }).start();
+                            }catch(Exception e){
+                            }
+
 
                         }
                         mScroll2.addView(ll);

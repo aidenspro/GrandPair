@@ -81,8 +81,6 @@ public class EventActivity extends AppCompatActivity {
 
 
             try {
-
-
                 DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + Event_ID).child("Attending").child(""+ attendNum);
 
                 fAttend = attendNum + 1;
