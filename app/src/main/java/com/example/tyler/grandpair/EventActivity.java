@@ -77,11 +77,6 @@ public class EventActivity extends AppCompatActivity {
         DatabaseReference getNum = db.getInstance().getReference().child("Event").child(""+Event_ID).child("AttendNum");
         int fAttend = 0;
 
-
-
-
-
-
         if (how == 0) {
 
 

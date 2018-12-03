@@ -57,6 +57,9 @@ public class ViewOtherActivity extends AppCompatActivity {
         DatabaseReference getLast = db.getInstance().getReference().child("Users").child(User_id).child("last name");
         DatabaseReference getAge = db.getInstance().getReference().child("Users").child(User_id).child("age");
 
+        DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(User_id).child("Messages").child(User_id);
+
+
         getFirst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
