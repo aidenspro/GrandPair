@@ -13,7 +13,6 @@
             android:id="@+id/lastName"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             android:layout_marginBottom="34dp"
             android:gravity="center"
             android:hint="Last Name"
@@ -27,7 +26,6 @@
             android:id="@+id/firstName"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:hint="First Name"
@@ -41,7 +39,6 @@
             android:id="@+id/profilePicture"
             android:layout_width="210dp"
             android:layout_height="273dp"
-
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"

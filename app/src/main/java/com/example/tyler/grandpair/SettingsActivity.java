@@ -147,7 +147,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         public void changeEmail() {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            user.updateEmail("user@example.com").addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
 
+                    }
+                }
+            });
         }
 
         public void changePassword() {
