@@ -6,12 +6,17 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -25,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button mRemoveEvent;
     private Button mAdmin;
     private StorageReference mStorageRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +45,27 @@ public class SettingsActivity extends AppCompatActivity {
         mRemoveAccount = (Button) findViewById(R.id.removeAccount);
         mRemoveEvent= (Button) findViewById(R.id.removeEvent);
         mAdmin= (Button) findViewById(R.id.Admin);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
 
+        DatabaseReference ref = db.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Admin");
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange( DataSnapshot dataSnapshot) {
+                try {
+                    if (dataSnapshot.getValue(String.class).equals("True"))
+                        mAdmin.setVisibility(View.VISIBLE);
+                }catch(Exception e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled( DatabaseError databaseError) {
+
+            }
+        });
 
         mProfileSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +91,11 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.updateEmail("user@example.com").addOnCompleteListener(new OnCompleteListener<Void>() {
+                user.updateEmail(user.getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-
+                            Toast.makeText(SettingsActivity.this, "Update Email Sent!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -83,12 +108,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
-                String emailAddress = "user@example.com";
+                String emailAddress = auth.getCurrentUser().getEmail();
                 auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-
+                            Toast.makeText(SettingsActivity.this, "Reset Email Sent!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

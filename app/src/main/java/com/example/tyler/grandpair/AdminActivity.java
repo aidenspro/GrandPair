@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -83,6 +84,7 @@ public class AdminActivity extends AppCompatActivity {
                                     final ImageView mPic;
                                     final TextView mLocation;
                                     final TextView mName;
+                                    final Button delete;
 
 
                                     //try {
@@ -96,6 +98,18 @@ public class AdminActivity extends AppCompatActivity {
                                     mName = (TextView) v.findViewById(R.id.eventName);
                                     // mLocation = (TextView) v.findViewById(R.id.ageNum);
                                     mPic = (ImageView) v.findViewById(R.id.miniPic);
+                                    delete = (Button) v.findViewById(R.id.delete);
+
+                                    delete.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            mStorageRef.child("EventPictures").child(snapshot.getKey() + "pic1.jpg").delete();
+                                            snapshot.getRef().removeValue();
+                                            finish();
+                                            startActivity(getIntent());
+
+                                        }
+                                    });
 
 
                                     getName.addValueEventListener(new ValueEventListener() {

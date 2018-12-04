@@ -82,17 +82,15 @@ public class MessageActivity extends AppCompatActivity {
                 final String message = messageBox.getText().toString();
 
 
-
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
                 DatabaseReference current_user_db = db.getInstance().getReference().child("Users").child(USER_ID).child("Messages").child(User_id).child("Messages");
 
                 Map newPost = new HashMap();
                 newPost.put("message", message);
                 newPost.put("Type", "Recieved");
-                current_user_db.child(""+ messageNum).setValue(newPost);
+                current_user_db.child("" + messageNum).setValue(newPost);
                 messageNum++;
                 current_user_db.child("MessageNum").setValue(messageNum);
-
 
 
                 db = FirebaseDatabase.getInstance();
@@ -101,9 +99,13 @@ public class MessageActivity extends AppCompatActivity {
                 newPost = new HashMap();
                 newPost.put("message", message);
                 newPost.put("Type", "Sent");
-                other_user_db.child(""+ messageNum2).setValue(newPost);
+                other_user_db.child("" + messageNum2).setValue(newPost);
                 messageNum2++;
                 other_user_db.child("MessageNum").setValue(messageNum2);
+
+                finish();
+                getIntent().putExtra("MESSAGE_NUM",messageNum);
+                startActivity(getIntent());
 
             }
 

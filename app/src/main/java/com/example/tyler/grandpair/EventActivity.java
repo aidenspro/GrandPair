@@ -47,6 +47,7 @@ public class EventActivity extends AppCompatActivity {
     private String age;
     private int Event_ID;
     private int how;
+    private boolean show;
     private StorageReference mStorageRef;
 
 
@@ -78,22 +79,46 @@ public class EventActivity extends AppCompatActivity {
         int fAttend = 0;
 
         if (how == 0) {
+            show = true;
+            FirebaseDatabase.getInstance().getReference().child("Event").child(""+Event_ID).child("Attending")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(final DataSnapshot dataSnapshot) {
+                            for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                if(snapshot.child("User").getValue(String.class).equals(User_id))
+                                    show = false;
+                            }
+                            if(show){
+                                try {
+                                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                                    DatabaseReference getNum = db.getInstance().getReference().child("Event").child(""+Event_ID).child("AttendNum");
+                                    DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + Event_ID).child("Attending").child(""+ attendNum);
+                                    int fAttend = 0;
+                                    fAttend = attendNum + 1;
+                                    getNum.setValue(fAttend);
+
+                                    ConcurrentHashMap newPost = new ConcurrentHashMap();
+                                    newPost.put("User", User_id);
+                                    addAttendee.setValue(newPost);
 
 
-            try {
-                DatabaseReference addAttendee = db.getInstance().getReference().child("Event").child("" + Event_ID).child("Attending").child(""+ attendNum);
+                                } catch (Exception e) {
 
-                fAttend = attendNum + 1;
-                getNum.setValue(fAttend);
+                                }
+                            }
 
-                ConcurrentHashMap newPost = new ConcurrentHashMap();
-                newPost.put("User", User_id);
-                addAttendee.setValue(newPost);
+                        }
 
 
-            } catch (Exception e) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
 
-            }
+
+                    });
+
+
+
         }
 
         getNum.addValueEventListener(new ValueEventListener() {

@@ -3,12 +3,17 @@ package com.example.tyler.grandpair;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +50,7 @@ public class SwipeActivity extends Activity {
     private boolean swiped;
     private int attendNum;
     private int occurence = 0;
+    private boolean show;
     CountDownLatch done;
     String URL;
     ListView listView;
@@ -149,13 +155,14 @@ public class SwipeActivity extends Activity {
                         mStorageRef.child("EventPictures").child(i + "pic1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-
-                                cards Item = new cards(User_id, "Event", uri.toString());
-                                rowItems.add(Item);
-                                arrayAdapter.notifyDataSetChanged();
-                                Log.d("LIST", "notified");
-                                i++;
-                                j++;
+                                if(show = true) {
+                                    cards Item = new cards(User_id, "Event", uri.toString());
+                                    rowItems.add(Item);
+                                    arrayAdapter.notifyDataSetChanged();
+                                    Log.d("LIST", "notified");
+                                    i++;
+                                    j++;
+                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
