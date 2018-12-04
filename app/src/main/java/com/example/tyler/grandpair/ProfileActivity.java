@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,9 +30,11 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView mAge;
     private TextView mFirstName;
     private TextView mLastName;
+    private TextView mBio;
     private String fName;
     private String lName;
     private String age;
+    private String bio;
     private StorageReference mStorageRef;
     private Button viewMessages;
 
@@ -44,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         mFirstName = (TextView) findViewById(R.id.firstName);
         mLastName = (TextView) findViewById(R.id.lastName);
         mAge = (TextView) findViewById(R.id.age);
+        mBio = (TextView) findViewById(R.id.editText3);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         viewMessages = (Button) findViewById(R.id.viewMessage);
 
@@ -54,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         final DatabaseReference getFirst = db.getInstance().getReference().child("Users").child(User_id).child("first name");
         DatabaseReference getLast = db.getInstance().getReference().child("Users").child(User_id).child("last name");
         DatabaseReference getAge = db.getInstance().getReference().child("Users").child(User_id).child("age");
+        DatabaseReference getBio = db.getInstance().getReference().child("Users").child(User_id).child("bio");
         getFirst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -83,6 +86,20 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 age = dataSnapshot.getValue(String.class);
                 mAge.setText(age);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        getBio.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bio = dataSnapshot.getValue(String.class);
+                mBio.setText(bio);
 
             }
 

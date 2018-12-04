@@ -27,7 +27,7 @@ import java.util.Map;
 public class CreateProfile extends AppCompatActivity {
 
     private Button mProfile,mSelect;
-    private EditText mFirstName, mLastName, mAge;
+    private EditText mFirstName, mLastName, mAge, mBio;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener fbListener;
     private int PICK_IMAGE;
@@ -44,13 +44,14 @@ public class CreateProfile extends AppCompatActivity {
         mFirstName = (EditText) findViewById(R.id.firstName);
         mLastName = (EditText) findViewById(R.id.lastName);
         mAge = (EditText) findViewById(R.id.age);
-
+        mBio = (EditText) findViewById(R.id.bio);
         mProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String firstName = mFirstName.getText().toString();
                 final String lastName = mLastName.getText().toString();
                 final String age = mAge.getText().toString();
+                final String bio = mBio.getText().toString();
 
 
                 String User_id = mAuth.getCurrentUser().getUid();
@@ -61,6 +62,7 @@ public class CreateProfile extends AppCompatActivity {
                 newPost.put("first name", firstName);
                 newPost.put("last name", lastName);
                 newPost.put("age", age);
+                newPost.put("bio", bio);
                 newPost.put("admin", 0);
 
                 current_user_db.setValue(newPost);
@@ -68,10 +70,8 @@ public class CreateProfile extends AppCompatActivity {
                 Intent intent = new Intent(CreateProfile.this, ChoicesActivity.class);
                 startActivity(intent);
                 finish();
-
             }
                 }
-
                 );
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +79,7 @@ public class CreateProfile extends AppCompatActivity {
                 final String firstName = mFirstName.getText().toString();
                 final String lastName = mLastName.getText().toString();
                 final String age = mAge.getText().toString();
+                final String bio = mBio.getText().toString();
 
                 String User_id = mAuth.getCurrentUser().getUid();
                 FirebaseDatabase db = FirebaseDatabase.getInstance();

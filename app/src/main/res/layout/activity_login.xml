@@ -67,4 +67,16 @@
         android:textStyle="bold"
         android:background="@drawable/button"/>
 
+    <Button
+        android:id="@+id/forgot_password"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="#CCFFA500"
+        android:text="Forgot Password"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>
