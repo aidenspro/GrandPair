@@ -115,7 +115,7 @@ public class MessageActivity extends AppCompatActivity {
 
         //------------------------------------------------------------------Generate mini account
         mImageView = (ImageView) findViewById(R.id.eventPicture);
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
+
         FirebaseDatabase.getInstance().getReference().child("Users").child(USER_ID)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -196,7 +196,6 @@ public class MessageActivity extends AppCompatActivity {
                                                 public void run() {
 
                                                     ll.addView(v);
-
 
                                                 }
                                             });
